@@ -1,0 +1,8 @@
+# Jetbrains Clion Project
+/.idea
+
+# Build executable
+ldak5.1
+
+#CMake build directory?
+build/

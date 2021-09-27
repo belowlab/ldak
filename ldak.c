@@ -80,7 +80,7 @@ Copyright 2020 Doug Speed.
 #include <limits.h>
 
 #if MET==0
-#include <qsopt_ex/QSopt_ex.h>
+#include "qsopt.h"
 #else
 #include"glpk.h"
 #endif
