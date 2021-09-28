@@ -27,6 +27,9 @@ LIBRARY_PATH=/opt/homebrew/lib/
 In order to work around what I think is a CMAKE bug finding generic lapack, I had to do this: `cmake -DCMAKE_BUILD_TYPE=Release -DLAPACK_LIBRARIES=/usr/lib/x86_64-linux-gnu/liblapack.a ..`. On Ubuntu 20.04, I got it working
 with the CMakeLists.txt that I'm checking in now, both dynamically linked and statically. Not only that, but it's using the openBLAS, which should be faster than generic BLAS or Intel BLAS on AMD CPUs.
 
+# Dependencies to build on Ubuntu:
+`sudo apt install cmake libopenblas-dev zlib1g-dev gfortran`
+
 # Original documentation:
   To run LDAK using Linux:
 
