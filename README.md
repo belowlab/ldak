@@ -11,24 +11,23 @@ Right now, there's no build system. LDAK's original documentation suggests that 
 ```
 gcc -O3 -o ldak5.1 ldak.c libqsopt_ex.a -lblas -llapack -lm -lz
 ```
+Update: I've added cmake as documented below:
 
-### Alex's Getting It Working on arm64 notes:
-* Went to go build a static libqsopt library from a modern fork: https://github.com/jonls/qsopt-ex
-* Had to install GMP, which I did from homebrew
-* Had to add homebrew to the include path via CPATH and LIBRARY_PATH
-```shell
-CPATH=/opt/homebrew/include/
-LIBRARY_PATH=/opt/homebrew/lib/
-```
-* Had to install that qsopt-ex fork with `sudo make install`
-* Updated ldak.c to include it with `#include <qsopt_ex/QSopt_ex.h>`
+# Building with CMake
 
-# Getting it building in CMake
+## Dependencies to build on Ubuntu:
+`sudo apt install cmake libopenblas-dev zlib1g-dev gfortran`
+
+## CMake build
+* Create a directory to hold the build `mkdir build && cd build`
+* use cmake to generate build files. It cannot find reference liblapack.a unless using a very recent cmake (3.21 or newer)
+* `cmake -DCMAKE_BUILD_TYPE=Release -DLAPACK_LIBRARIES=/usr/lib/x86_64-linux-gnu/liblapack.a ..`
+* Call `make` to build ldak with a static binary, linked against OpenBLAS or reference BLAS, depending which you had installed and which cmake found
+
+## My notes from getting it building with cmake
 In order to work around what I think is a CMAKE bug finding generic lapack, I had to do this: `cmake -DCMAKE_BUILD_TYPE=Release -DLAPACK_LIBRARIES=/usr/lib/x86_64-linux-gnu/liblapack.a ..`. On Ubuntu 20.04, I got it working
 with the CMakeLists.txt that I'm checking in now, both dynamically linked and statically. Not only that, but it's using the openBLAS, which should be faster than generic BLAS or Intel BLAS on AMD CPUs.
 
-# Dependencies to build on Ubuntu:
-`sudo apt install cmake libopenblas-dev zlib1g-dev gfortran`
 
 # Original documentation:
   To run LDAK using Linux:
