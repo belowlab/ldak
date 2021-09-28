@@ -23,6 +23,10 @@ LIBRARY_PATH=/opt/homebrew/lib/
 * Had to install that qsopt-ex fork with `sudo make install`
 * Updated ldak.c to include it with `#include <qsopt_ex/QSopt_ex.h>`
 
+# Getting it building in CMake
+In order to work around what I think is a CMAKE bug finding generic lapack, I had to do this: `cmake -DCMAKE_BUILD_TYPE=Release -DLAPACK_LIBRARIES=/usr/lib/x86_64-linux-gnu/liblapack.a ..`. On Ubuntu 20.04, I got it working
+with the CMakeLists.txt that I'm checking in now, both dynamically linked and statically. Not only that, but it's using the openBLAS, which should be faster than generic BLAS or Intel BLAS on AMD CPUs.
+
 # Original documentation:
   To run LDAK using Linux:
 
